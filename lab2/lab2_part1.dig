@@ -148,7 +148,7 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>inA_0</string>
+          <string>inB_2</string>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-200"/>
@@ -362,12 +362,12 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>NetName</string>
-          <string>inB_0</string>
-        </entry>
-        <entry>
           <string>rotation</string>
           <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>inB_0</string>
         </entry>
       </elementAttributes>
       <pos x="500" y="-180"/>
@@ -865,10 +865,10 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>multiplexer for each row of truth table!</string>
+          <string>multiplexer for each column of truth table!</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="-500"/>
+      <pos x="540" y="-500"/>
     </visualElement>
   </visualElements>
   <wires>
