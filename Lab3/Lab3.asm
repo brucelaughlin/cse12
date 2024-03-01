@@ -1,3 +1,18 @@
+########################################################################
+# Created by :  	Laughlin, Bruce
+# 			CruzID: blaughli@ucsc.edu
+#			1 March, 2024
+#
+# Assignment: Lab 3: 	RARS Introduction
+#			CSE12, Computer Systems and Assembly Language
+#			UC Santa Cruz, Fall 2024
+#
+# Description: This program prints a sailboat sail of stars to a file and to the screen
+#
+# Notes: This program is intended to be run from the MARS IDE. ??? is that RARS?
+##########################################################################
+
+
 
 .macro exit #macro to exit program
 	li a7, 10
@@ -116,7 +131,8 @@
 .end_macro
 
 .data
-	prompt: .asciz  "Enter the height of the pattern (must be greater than 0):"
+	#prompt: .asciz  "Enter the height of the pattern (must be greater than 0):"
+	prompt: .asciz  "Enter n (must be greater than 0):"
 	invalidMsg: .asciz  "Invalid Entry!"
 	newLine: .asciz  "\n"
 	star_dollar: .asciz  "*$"
@@ -147,47 +163,39 @@
 	
 	#................ your code starts here..........................................................#
 	
-
+	
+	li t1, 1
 	
 printLoopBody:
-	print_str(invalidMsg)
-	#print_str(newline)
-	print_str(prompt)
-	#print_str(newline)
-	read_n(t0)
-	#t0 now contains the value n 
-	
-	#blt t0, t1, printLoopBody
-	blt t0, zero, printLoopBody
-	
 
+	print_str(invalidMsg)
+	print_str(newLine)
+	print_str(prompt) #print_str(newline)
+	read_n(t0) #t0 now contains the value n 
+	
+	blt t0, t1, printLoopBody
+	
 	addi t5, t0, 0
 	addi t4, t0, -1
 	addi t4, t4, -1
-
 	
-	j leftSpacesCheck
-	
-#LoopBody:	
+	j leftSpacesCheck	
 
 printLeftSpaces:
-
-	#addi t3, t0, -1 # number of left side spaces to print (initialized here)
 	
 	write_to_buffer(0x20) # write ' ' to buffer
 	print_str(blankspace) #display ' ' on screen
 	addi t1, t1, 1
 	blt t1, t5, printLeftSpaces
-	#addi t5, t5, -1
-	#sub t3, t2, t1
+
 	j middleStarCheck
-	#j leftSpacesCheck
 
 printMiddleStar:
 
 	write_to_buffer(0x2a) # write star to buffer
 	print_str(star) #display '*' on screen
 	addi t5, t5, -1
+	
 	j rightSpacesCheck
 
 printRightSpaces:
@@ -195,6 +203,7 @@ printRightSpaces:
 	write_to_buffer(0x20) # write ' ' to buffer
 	print_str(blankspace) #display ' ' on screen
 	addi t2, t2, 1
+	
 	blt t2, t3, printRightSpaces
 	
 	write_to_buffer(0x2a) # write star to buffer
@@ -203,24 +212,30 @@ printRightSpaces:
 	print_str(newLine) # write newLine to screen
 	
 	j leftSpacesCheck
-	
-#checkLoop:
 
 leftSpacesCheck:
+
 	li t1, 1
 	blt t1, t5, printLeftSpaces
 	beq zero, t5, Exit 
+	
 middleStarCheck:
+
 	blt t5, t0, printMiddleStar
 	addi t5, t5, -1
+	
 rightSpacesCheck:
+
 	li t2, 2
 	sub t3, t0, t5
+	
 	blt t5, t4, printRightSpaces
+	
 	write_to_buffer(0x2a) # write star to buffer
 	write_to_buffer(0x0a) # write newline to buffer
 	print_str(star) #display '*' on screen
 	print_str(newLine) # write newLine to screen
+	
 	blt zero, t5, leftSpacesCheck
 
 
